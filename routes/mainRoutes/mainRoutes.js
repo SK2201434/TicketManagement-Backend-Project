@@ -6,7 +6,9 @@ const reviewRoutes = require("../reviewRouter");
 const invoicedRoutes = require("../invoiceRoutes");
 const assetsRoutes = require("../uploadAssetsRoutes");
 const clientRoutes = require("../clientRoutes");
+const ticketRoutes = require("../ticketsRoute");
 const validateToken = require("../../middleware/validateToken")
+
 
 router.use("/user", userRouter);
 router.use(validateToken);//do this for using validations for all routes
@@ -16,6 +18,7 @@ router.use("/invoices", invoicedRoutes);
 router.use("/review", reviewRoutes);
 router.use("/assets", assetsRoutes);
 router.use("/client", clientRoutes);
+router.use("/ticket", ticketRoutes);
 
 
 module.exports = router;

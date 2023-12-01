@@ -172,6 +172,36 @@ const deleteProject = async (req, res) => {
     });
   }
 };
+
+const getProjectsbyloginID = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const allProject = await ProjectSchema.find({ userId });
+
+    if (allProject.length > 0) {
+      res.status(200).json({
+        success: true,
+        message: 'All Project list below',
+        ProjectLists: allProject,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'No Project found',
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+
+
+
 module.exports = {
   addProject,
   
@@ -180,4 +210,5 @@ module.exports = {
   getProjectsbyId,
   updateProject,
   deleteProject,
+  getProjectsbyloginID,
 };

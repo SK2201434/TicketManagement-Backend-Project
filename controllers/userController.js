@@ -26,10 +26,10 @@ const signUp = async (req, res) => {
       });
     } else {
       // if (req.file !== undefined) {
-        const result = await couldinary.uploader.upload(req.file.path, {
-          public_id: `${registerData._id}_${Date.now()}_ProfilePIC`,
-        });
-        registerData.profilePic = result.url;
+        // const result = await couldinary.uploader.upload(req.file.path, {
+        //   public_id: `${registerData._id}_${Date.now()}_ProfilePIC`,
+        // });
+        // registerData.profilePic = result.url;
       // }
       registerData.userPassword = await bcrypt.hash(req.body.userPassword, 10);
 
@@ -111,6 +111,7 @@ const userLogin = async (req, res) => {
           const passwordMatch = await bcrypt.compare(userPassword, userData.userPassword)
           if (userData && passwordMatch) {
               const token = jwt.sign({ userId: userData._id }, process.env.JWT, { expiresIn: "5d" })
+              console.log(userData._id)
               return res.status(200).json({
                   success: true,
                   message: "Login successfully",
@@ -146,11 +147,11 @@ const adminLogin = async (req, res) => {
       } else {
           const passwordMatch = await bcrypt.compare(userPassword, userData.userPassword)
           if (userData && passwordMatch) {
-              // const token = jwt.sign({ userId: userData._id }, process.env.JWT, { expiresIn: "5d" })
+              const token = jwt.sign({ userId: userData._id }, process.env.JWT, { expiresIn: "5d" })
               return res.status(200).json({
                   success: true,
                   message: "Login successfully",
-                  // token: token,
+                  token: token,
                   userId: userData._id
               })
           } else {

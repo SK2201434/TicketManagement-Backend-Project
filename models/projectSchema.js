@@ -3,10 +3,14 @@ const mongoose = require("mongoose");
 const projectSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    // required: true,
+    required: true,
     ref: "userData",
   },
   project_name: {
+    type: String,
+    required: [true, "Please Enter Project Name "],
+  },
+  assigneeId: {
     type: String,
     required: [true, "Please Enter Project Name "],
   },
